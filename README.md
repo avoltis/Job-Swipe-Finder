@@ -9,7 +9,5 @@ In the project directory you run:
 
 `yarn start`
 
-`expo start`
-
 Runs the app in the development mode.
 Open Expo Client on you device to view the app by scaning the QR code. Or you can run it on an IOS/Android simulator otherwise
