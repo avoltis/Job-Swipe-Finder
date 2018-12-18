@@ -84,14 +84,22 @@ class Deck extends Component {
             }
             if (i === this.state.index) {
                 return (
-                    <Animated.View key={item.id} style={this.getCardStyle()} {...this.state.panResponder.panHandlers}>
+                    <Animated.View
+                        key={item.id}
+                        style={[this.getCardStyle(), styles.cardStyle]}
+                        {...this.state.panResponder.panHandlers}
+                    >
                         {this.props.renderCard(item)}
                     </Animated.View>
                 );
             }
 
-            return this.props.renderCard(item);
-        });
+            return (
+                <View key={item.id} style={styles.cardStyle}>
+                    {this.props.renderCard(item)}
+                </View>
+            );
+        }).reverse();
     }
 
     render() {
@@ -102,5 +110,13 @@ class Deck extends Component {
         );
     };
 }
+
+
+const styles = {
+    cardStyle: {
+        position: 'absolute',
+        width: SCREEN_WIDTH
+    }
+};
 
 export default Deck;
