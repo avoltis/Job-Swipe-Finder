@@ -31,12 +31,13 @@ class Deck extends Component {
             }
         });
 
-        this.state = { panResponder, position, index: 0 };
+        this.position = position;
+        this.state = { panResponder, index: 0 };
     }
 
     forceSwipe(direction) {
         const x = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
-        Animated.timing(this.state.position, {
+        Animated.timing(this.position, {
             toValue: { x: x, y: 0 },
             duration: SWIPE_OUT_DURATION
         }).start(() => this.onSwipeCompelete(direction));
@@ -47,16 +48,19 @@ class Deck extends Component {
         const item = this.props.data[this.state.index];
 
         direction === 'right' ? onSwipeRight(item) : onSwipeLeft(item);
+
+        this.position.setValue({ x: 0, y: 0 });
+        this.setState({ index: this.state.index + 1 });
     }
 
     resetPosition() {
-        Animated.spring(this.state.position, {
+        Animated.spring(this.position, {
             toValue: { x: 0, y: 0 }
         }).start();
     }
 
     getCardStyle() {
-        const position = this.state.position;
+        const position = this.position;
         const rotate = position.x.interpolate({
             inputRange: [-SCREEN_WIDTH * 1.5, 0, SCREEN_WIDTH * 1.5],
             outputRange: ['-120deg', '0deg', '120deg']
@@ -69,8 +73,11 @@ class Deck extends Component {
     }
 
     renderCards() {
-        return this.props.data.map((item, index) => {
-            if (index === 0) {
+        return this.props.data.map((item, i) => {
+            if (i < this.state.index) {
+                return null
+            }
+            if (i === this.state.index) {
                 return (
                     <Animated.View key={item.id} style={this.getCardStyle()} {...this.state.panResponder.panHandlers}>
                         {this.props.renderCard(item)}
