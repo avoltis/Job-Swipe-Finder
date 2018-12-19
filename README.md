@@ -1,6 +1,6 @@
-# Job Search Swipe App
+# Sign Up Form
 
-Find a Job with a tinder like react-native app
+Form Sign Up for one time password 
 
 # Start the web app
 In the project directory you run:
