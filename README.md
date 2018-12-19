@@ -8,8 +8,6 @@ Deploy firebase to test.
 
 In the project directory you run:
 
-`yarn install`
-
-`yarn start`
+`firebase deploy --project [id of your firebase project]`
 
 Runs the app in the development mode.
