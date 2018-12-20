@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from "react-navigation"
-import AuthScreen from './screens/AuthScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
-import MapScreen from './screens/MapScreen';
-import DeskScreen from './screens/DeckScreen';
-import ReviewScreen from './screens/ReviewScreen';
-import Settings from './screens/SettingsScreen';
-import SettingsScreen from './screens/SettingsScreen';
+import AuthScreen from './src/screens/AuthScreen'
+import WelcomeScreen from './src/screens/WelcomeScreen';
+import MapScreen from './src/screens/MapScreen';
+import DeskScreen from './src/screens/DeckScreen';
+import ReviewScreen from './src/screens/ReviewScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 
 export default class App extends React.Component {
 
