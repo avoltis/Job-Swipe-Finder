@@ -52,7 +52,8 @@ class Slides extends Component {
 const styles = {
     slideText: {
         fontSize: 30,
-        color: 'white'
+        color: 'white',
+        padding: 15
     },
     slideStyle: {
         height: SCREEN_HEIGHT,
