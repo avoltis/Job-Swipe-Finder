@@ -7,20 +7,31 @@ class AuthScreen extends Component {
 
     componentDidMount() {
         this.props.facebookLogin();
-        AsyncStorage.removeItem('fb_token'); // DELETE 
+        // this.onAuthComplete(this.props);
+
+        // AsyncStorage.removeItem('fb_token'); // test
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.onAuthComplete(nextProps);
+    }
+
+    onAuthComplete = (props) => {
+        if (props.token) {
+            this.props.navigation.navigate('map');
+        }
     }
 
     render() {
         return (
-            <View>
-                <Text>Auth Screen</Text>
-                <Text>Auth Screen</Text>
-                <Text>Auth Screen</Text>
-                <Text>Auth Screen</Text>
-            </View>
+            <View /> //will be showing fb popup from facebookLogin
         )
     }
 
 }
 
-export default connect(null, actions)(AuthScreen);
+function mapStateToProps({ auth }) {
+    return { token: auth.token };
+}
+
+export default connect(mapStateToProps, actions)(AuthScreen);
