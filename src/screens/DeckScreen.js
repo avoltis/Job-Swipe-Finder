@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, WebView } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
 import { Card, Button } from 'react-native-elements';
@@ -10,8 +10,27 @@ import Swipe from '../components/Swipe';
 class DeckScreen extends Component {
 
     renderCard = (job) => {
+
+        const initialRegion = {
+            longitude: job.company.location.lng,
+            latitude: job.company.location.lat,
+            latitudeDelta: 0.045,
+            longitudeDelta: 0.02
+        }
+
         return (
             <Card title={job.title}>
+                <View style={{ height: 300 }}>
+                    <MapView
+                        scrollEnabled={false}
+                        style={{ flex: 1 }}
+                        cacheEnabled={Platform.OS === 'android' ? true : false}
+                        initialRegion = {initialRegion}
+                    >
+
+                    </MapView>
+                </View>
+
                 <View style={styles.detailWrapper}>
                     <Text>Company: {job.company.name}</Text>
                     <Text>Posted in: {job.post_date}</Text>
