@@ -22,10 +22,10 @@ class DeckScreen extends Component {
             <Card title={job.title}>
                 <View style={{ height: 300 }}>
                     <MapView
+                        initialRegion={initialRegion}
                         scrollEnabled={false}
                         style={{ flex: 1 }}
                         cacheEnabled={Platform.OS === 'android' ? true : false}
-                        initialRegion = {initialRegion}
                     >
 
                     </MapView>
