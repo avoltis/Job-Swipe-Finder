@@ -19,13 +19,13 @@ export default class App extends React.Component {
       auth: { screen: AuthScreen, navigationOptions: { tabBarVisible: false } },
       main: {
         screen: createBottomTabNavigator({
-          map: { screen: MapScreen , navigationOptions: { tabBarVisible: false } },
-          deck: { screen: DeskScreen , navigationOptions: { tabBarVisible: false } },
+          map: { screen: MapScreen },
+          deck: { screen: DeskScreen },
           review: {
             screen: createStackNavigator({
               review: ReviewScreen,
               settings: SettingsScreen
-            }) , navigationOptions: { tabBarVisible: false }
+            }), navigationOptions: { tabBarVisible: false }
           }
         }), navigationOptions: { tabBarVisible: false }
       }
