@@ -9,7 +9,7 @@ import {
     CLEAR_LIKED_JOBS
   } from './types';
   
-// TO USE indeed you will need a workinf api key
+// TO USE indeed api  will need a working indeed api key
   
 //   const JOB_ROOT_URL = 'http://api.indeed.com/ads/apisearch?';
 //   const JOB_QUERY_PARAMS = {
@@ -20,6 +20,20 @@ import {
 //     radius: 10,
 //     q: 'javascript'
 //   };
+
+
+//   export const fetchJobs = (region, callback) => async (dispatch) => {
+//     try {
+//       let zip = await reverseGeocode(region);
+//       const url = buildJobsUrl(zip);
+//       let { data } = await axios.get(url);
+//       dispatch({ type: FETCH_JOBS, payload: data });
+//       callback();
+//     } catch(e) {
+//       console.error(e);
+//     }
+//   };
+
 
 const JOB_ROOT_URL = 'https://authenticjobs.com/api/?';
 const JOB_QUERY_PARAMS = {
@@ -39,10 +53,10 @@ const buildJobsUrl = (zip) => {
     try {
       let zip = await Location.reverseGeocodeAsync(region);
       const url = buildJobsUrl(zip);
-      console.log(url);
+
       let data = await fetch(url);
       dispatch({ type: FETCH_JOBS, payload: data });
-      console.log(data);
+   
     } catch(e) {
       console.error(e);
     }
