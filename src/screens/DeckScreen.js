@@ -11,9 +11,12 @@ class DeckScreen extends Component {
 
     renderCard = (job) => {
 
+        longitude = Platform.OS === 'android' ? parseFloat(job.company.location.lng) : job.company.location.lng
+        latitude = Platform.OS === 'android' ? parseFloat(job.company.location.lat) : job.company.location.lat
+ 
         const initialRegion = {
-            longitude: job.company.location.lng,
-            latitude: job.company.location.lat,
+            longitude,
+            latitude,
             latitudeDelta: 0.045,
             longitudeDelta: 0.02
         }
