@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
-import { Button} from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { MapView, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -8,6 +9,7 @@ import * as actions from '../actions';
 class MapScreen extends Component {
 
     state = {
+        spinner: false,
         mapLoaded: false,
         region: {
             longitude: -122,
@@ -20,18 +22,23 @@ class MapScreen extends Component {
     async componentDidMount() {
         await Permissions.askAsync(Permissions.LOCATION);
     }
-   
+
     onRegionChangeComplete = (region) => {
-      this.setState({ region });
+        this.setState({ region });
     }
-   
+
     onButtonPress = () => {
-      this.props.fetchJobs(this.state.region, () => {
-          this.props.navigation.navigate('deck');
-      });
+
+        this.setState({ spinner: true })
+
+        this.props.fetchJobs(this.state.region, () => {
+            this.props.navigation.navigate('deck');
+            this.setState({ spinner: false })
+        });
     }
 
     render() {
+
         // if (!this.state.mapLoaded) {
         //     return (
         //         <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -47,11 +54,16 @@ class MapScreen extends Component {
                     onRegionChangeComplete={this.onRegionChangeComplete}
                 />
                 <View style={styles.buttonContainer}>
+                    <Spinner
+                        visible={this.state.spinner}
+                        textContent={'Loading...'}
+                        textStyle={styles.spinnerTextStyle}
+                    />
                     <Button
-                    title="Search Area"
-                    backgroundColor= "#009688"
-                    icon ={{name: 'search'}}
-                    onPress={this.onButtonPress}
+                        title="Search Area"
+                        backgroundColor="#009688"
+                        icon={{ name: 'search' }}
+                        onPress={this.onButtonPress}
                     />
                 </View>
             </View>
@@ -60,10 +72,13 @@ class MapScreen extends Component {
 
 
 
-    
+
 }
 
 const styles = {
+    spinnerTextStyle: {
+        color: '#FFF'
+    },
     buttonContainer: {
         position: 'absolute',
         bottom: 20,
