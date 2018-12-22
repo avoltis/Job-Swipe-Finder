@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import { Text, View, Platform } from 'react-native';
+import { Text, View, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
 import { Card, Button } from 'react-native-elements';
 import Swipe from '../components/Swipe';
 
-
+const CARD_HEIGHT = Dimensions.get('window').height > 600 ? 470 : null;
 
 class DeckScreen extends Component {
 
     renderCard = (job) => {
 
-        longitude = Platform.OS === 'android' ? parseFloat(job.company.location.lng) : job.company.location.lng
-        latitude = Platform.OS === 'android' ? parseFloat(job.company.location.lat) : job.company.location.lat
- 
+        if (job.company.location) {
+            lng = job.company.location.lng === undefined ? 0 : job.company.location.lng;
+            lat = job.company.location.lat === undefined ? 0 : job.company.location.lat;
+        } else {
+            lng = 0;
+            lat = 0;
+        }
+
+        longitude = Platform.OS === 'android' ? parseFloat(lng) : lng;
+        latitude = Platform.OS === 'android' ? parseFloat(lat) : lat;
+
         const initialRegion = {
             longitude,
             latitude,
@@ -22,7 +30,7 @@ class DeckScreen extends Component {
         }
 
         return (
-            <Card title={job.title}>
+            <Card title={job.title} containerStyle={{height: CARD_HEIGHT}}>
                 <View style={{ height: 300 }}>
                     <MapView
                         initialRegion={initialRegion}
