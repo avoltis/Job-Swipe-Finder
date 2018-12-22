@@ -13,15 +13,12 @@ class DeckScreen extends Component {
     renderCard = (job) => {
 
         if (job.company.location) {
-            lng = job.company.location.lng === undefined ? 0 : job.company.location.lng;
-            lat = job.company.location.lat === undefined ? 0 : job.company.location.lat;
+            longitude = job.company.location.lng === undefined ? 0 : parseFloat(job.company.location.lng);
+            latitude = job.company.location.lat === undefined ? 0 : parseFloat(job.company.location.lat);
         } else {
-            lng = 0;
-            lat = 0;
+            longitude = 0;
+            latitude = 0;
         }
-
-        longitude = Platform.OS === 'android' ? parseFloat(lng) : lng;
-        latitude = Platform.OS === 'android' ? parseFloat(lat) : lat;
 
         const initialRegion = {
             longitude,
@@ -58,7 +55,6 @@ class DeckScreen extends Component {
             </Card>
         );
     }
-
 
     render() {
         return (
