@@ -62,3 +62,10 @@ const buildJobsUrl = (zip) => {
       console.error(e);
     }
   };
+
+  export const likeJob = (job) => {
+    return {
+      payload: job,
+      type: LIKE_JOB
+    };
+  };
