@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Platform, ScrollView, Linking } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { MapView } from 'expo';
 
 class ReviewScreen extends Component {
 
@@ -28,10 +29,30 @@ class ReviewScreen extends Component {
                 company, post_date, title, id, apply_url
             } = job;
 
+            if (job.company.location) {
+                longitude = job.company.location.lng === undefined ? 0 : parseFloat(job.company.location.lng);
+                latitude = job.company.location.lat === undefined ? 0 : parseFloat(job.company.location.lat);
+            } else {
+                longitude = 0;
+                latitude = 0;
+            }
+
+            const initialRegion = {
+                longitude,
+                latitude,
+                latitudeDelta: 0.045,
+                longitudeDelta: 0.02
+            }
 
             return (
                 <Card title={title} key={id}>
                     <View style={{ height: 200 }}>
+                        <MapView
+                            initialRegion={initialRegion}
+                            scrollEnabled={false}
+                            style={{ flex: 1 }}
+                            cacheEnabled={Platform.OS === 'android'}
+                        />
                         <View style={styles.detailWrapper}>
                             <Text style={styles.italics}>Company: {company.name}</Text>
                             <Text style={styles.italics}>Posted in: {post_date}</Text>

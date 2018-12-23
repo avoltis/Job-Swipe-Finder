@@ -34,7 +34,7 @@ class DeckScreen extends Component {
                         initialRegion={initialRegion}
                         scrollEnabled={false}
                         style={{ flex: 1 }}
-                        cacheEnabled={Platform.OS === 'android' ? true : false}
+                        cacheEnabled={Platform.OS === 'android'}
                     >
 
                     </MapView>
