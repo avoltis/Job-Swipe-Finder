@@ -25,7 +25,7 @@ export default class App extends React.Component {
             screen: createStackNavigator({
               review: ReviewScreen,
               settings: SettingsScreen
-            }), navigationOptions: { tabBarVisible: false }
+            })
           }
         }), navigationOptions: { tabBarVisible: false }
       }
