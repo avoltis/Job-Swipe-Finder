@@ -5,6 +5,8 @@ import { MapView } from 'expo';
 import { Card, Button } from 'react-native-elements';
 import Swipe from '../components/Swipe';
 import * as actions from '../actions';
+import parseLatLng from '../logic';
+
 
 const CARD_HEIGHT = Dimensions.get('window').height > 600 ? 470 : null;
 
@@ -12,20 +14,7 @@ class DeckScreen extends Component {
 
     renderCard = (job) => {
 
-        if (job.company.location) {
-            longitude = job.company.location.lng === undefined ? 0 : parseFloat(job.company.location.lng);
-            latitude = job.company.location.lat === undefined ? 0 : parseFloat(job.company.location.lat);
-        } else {
-            longitude = 0;
-            latitude = 0;
-        }
-
-        const initialRegion = {
-            longitude,
-            latitude,
-            latitudeDelta: 0.045,
-            longitudeDelta: 0.02
-        }
+        const initialRegion = parseLatLng(job);
 
         return (
             <Card title={job.title} containerStyle={{ height: CARD_HEIGHT }}>

@@ -3,6 +3,7 @@ import { Text, View, Platform, ScrollView, Linking } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
+import parseLatLng from '../logic';
 
 class ReviewScreen extends Component {
 
@@ -24,25 +25,12 @@ class ReviewScreen extends Component {
 
     renderLikedJobs() {
         return this.props.likedJobs.map(job => {
-            console.log(job)
+        
             const {
                 company, post_date, title, id, apply_url
             } = job;
 
-            if (job.company.location) {
-                longitude = job.company.location.lng === undefined ? 0 : parseFloat(job.company.location.lng);
-                latitude = job.company.location.lat === undefined ? 0 : parseFloat(job.company.location.lat);
-            } else {
-                longitude = 0;
-                latitude = 0;
-            }
-
-            const initialRegion = {
-                longitude,
-                latitude,
-                latitudeDelta: 0.045,
-                longitudeDelta: 0.02
-            }
+            const initialRegion = parseLatLng(job);
 
             return (
                 <Card title={title} key={id}>
