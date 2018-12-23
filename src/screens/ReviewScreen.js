@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Platform, ScrollView } from 'react-native';
+import { Text, View, Platform, ScrollView, Linking } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 
@@ -25,7 +25,7 @@ class ReviewScreen extends Component {
         return this.props.likedJobs.map(job => {
             console.log(job)
             const {
-                company, post_date, title, id
+                company, post_date, title, id, apply_url
             } = job;
 
 
@@ -39,7 +39,7 @@ class ReviewScreen extends Component {
                         <Button
                             title="Apply Now!"
                             backgroundColor="#03A9F4"
-                            onPress={() => { }}
+                            onPress={() => Linking.openURL(apply_url)}
                         />
                     </View>
                 </Card>
