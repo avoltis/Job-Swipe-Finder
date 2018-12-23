@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { MapView } from 'expo';
-import { Card, Button } from 'react-native-elements';
+import { Card, Button, Icon } from 'react-native-elements';
 import Swipe from '../components/Swipe';
 import * as actions from '../actions';
 import parseLatLng from '../logic';
@@ -11,6 +11,12 @@ import parseLatLng from '../logic';
 const CARD_HEIGHT = Dimensions.get('window').height > 600 ? 470 : null;
 
 class DeckScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Jobs',
+        tabBarIcon: ({ tintColor }) => {
+            return <Icon name="description" size={30} color={tintColor} />
+        }
+    })
 
     renderCard = (job) => {
 
@@ -41,13 +47,13 @@ class DeckScreen extends Component {
     renderNoMoreCards = () => {
         return (
             <Card title="No more jobs">
-            <Button
-            title="Back to Map"
-            large
-            icon={{name: 'my-location'}}
-            backgroundColor="#03A9F4"
-            onPress={() => this.props.navigation.navigate('map')}
-             />
+                <Button
+                    title="Back to Map"
+                    large
+                    icon={{ name: 'my-location' }}
+                    backgroundColor="#03A9F4"
+                    onPress={() => this.props.navigation.navigate('map')}
+                />
             </Card>
         );
     }

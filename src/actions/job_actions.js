@@ -71,6 +71,5 @@ export const likeJob = (job) => {
 };
 
 export const clearLikedJobs = () => {
-  console.log("clear job_Actions")
   return { type: CLEAR_LIKED_JOBS };
 };

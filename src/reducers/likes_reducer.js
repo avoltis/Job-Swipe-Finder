@@ -10,7 +10,6 @@ export default function (state = [], action) {
             ], 'id');
 
         case CLEAR_LIKED_JOBS:
-            console.log("clear reducer")
             return [];
 
         default:

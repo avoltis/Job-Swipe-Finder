@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { MapView, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class MapScreen extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Map',
+        tabBarIcon: ({ tintColor }) => {
+            return <Icon name="map" size={30} color={tintColor} />
+        }
+    })
 
     state = {
         spinner: false,
