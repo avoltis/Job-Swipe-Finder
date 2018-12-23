@@ -95,6 +95,12 @@ class Swipe extends Component {
 
     renderCards() {
 
+        if (this.props.data.jobs) {
+            if (this.props.data.jobs.length === 0) {
+                return this.props.renderNoMoreCards();
+            }           
+        }
+
         if (this.state.index >= this.props.data.length) {
             return this.props.renderNoMoreCards();
         }
