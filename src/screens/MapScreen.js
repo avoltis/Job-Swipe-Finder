@@ -7,90 +7,87 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class MapScreen extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        title: 'Map',
-        tabBarIcon: ({ tintColor }) => {
-            return <Icon name="map" size={30} color={tintColor} />
-        }
-    })
-
-    state = {
-        spinner: false,
-        mapLoaded: false,
-        region: {
-            longitude: -122,
-            latitude: 37,
-            longitudeDelta: 0.04,
-            latitudeDelta: 0.09
-        }
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Map',
+    tabBarIcon: ({ tintColor }) => {
+      return <Icon name="map" size={30} color={tintColor} />;
     }
+  });
 
-    async componentDidMount() {
-        await Permissions.askAsync(Permissions.LOCATION);
+  state = {
+    spinner: false,
+    mapLoaded: false,
+    region: {
+      longitude: -122,
+      latitude: 37,
+      longitudeDelta: 0.04,
+      latitudeDelta: 0.09
     }
+  };
 
-    onRegionChangeComplete = (region) => {
-        this.setState({ region });
-    }
+  async componentDidMount() {
+    await Permissions.askAsync(Permissions.LOCATION);
+  }
 
-    onButtonPress = () => {
+  onRegionChangeComplete = region => {
+    this.setState({ region });
+  };
 
-        this.setState({ spinner: true })
+  onButtonPress = () => {
+    this.setState({ spinner: true });
 
-        this.props.fetchJobs(this.state.region, () => {
-            this.props.navigation.navigate('deck');
-            this.setState({ spinner: false })
-        });
-    }
+    this.props.fetchJobs(this.state.region, () => {
+      this.props.navigation.navigate('deck');
+      this.setState({ spinner: false });
+    });
+  };
 
-    render() {
-
-        // if (!this.state.mapLoaded) {
-        //     return (
-        //         <View style={{ flex: 1, justifyContent: 'center' }}>
-        //             <ActivityIndicator size="large" />
-        //         </View>
-        //     );
-        // }
-        return (
-            <View style={{ flex: 1 }}>
-                <MapView
-                    initialRegion={this.state.region}
-                    style={{ flex: 1 }}
-                    onRegionChangeComplete={this.onRegionChangeComplete}
-                />
-                <View style={styles.buttonContainer}>
-                    <Spinner
-                        visible={this.state.spinner}
-                        textContent={'Loading...'}
-                        textStyle={styles.spinnerTextStyle}
-                    />
-                    <Button
-                        title="Search Area"
-                        backgroundColor="#009688"
-                        icon={{ name: 'search' }}
-                        onPress={this.onButtonPress}
-                    />
-                </View>
-            </View>
-        )
-    }
-
-
-
-
+  render() {
+    // if (!this.state.mapLoaded) {
+    //     return (
+    //         <View style={{ flex: 1, justifyContent: 'center' }}>
+    //             <ActivityIndicator size="large" />
+    //         </View>
+    //     );
+    // }
+    return (
+      <View style={{ flex: 1 }}>
+        <MapView
+          initialRegion={this.state.region}
+          style={{ flex: 1 }}
+          onRegionChangeComplete={this.onRegionChangeComplete}
+        />
+        <View style={styles.buttonContainer}>
+          <Spinner
+            visible={this.state.spinner}
+            textContent={'Loading...'}
+            textStyle={styles.spinnerTextStyle}
+          />
+          <Button
+            title="Search Area"
+            backgroundColor="#009688"
+            icon={{ name: 'search' }}
+            onPress={this.onButtonPress}
+          />
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = {
-    spinnerTextStyle: {
-        color: '#FFF'
-    },
-    buttonContainer: {
-        position: 'absolute',
-        bottom: 20,
-        left: 0,
-        right: 0
-    }
-}
+  spinnerTextStyle: {
+    color: '#FFF'
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0
+  }
+};
 
-export default connect(null, actions)(MapScreen);
+export default connect(
+  null,
+  actions
+)(MapScreen);

@@ -5,12 +5,12 @@ import { AsyncStorage } from 'react-native';
 import reducers from '../reducers';
 
 const store = createStore(
-    reducers,
-    {},
-    compose(
-        applyMiddleware(thunk),
-        autoRehydrate()
-    )
+  reducers,
+  {},
+  compose(
+    applyMiddleware(thunk),
+    autoRehydrate()
+  )
 );
 
 persistStore(store, { storage: AsyncStorage, whitelist: ['likedJobs'] });
